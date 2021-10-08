@@ -16,7 +16,7 @@ int main() {
 
   // Create vector v1 and fill it with a random uniform distribution:
   std::vector<double> v1;
-  std::uniform_real_distribution<double> unif(-1.,1.);
+  std::uniform_real_distribution<double> unif(-1.e8,1.e8);
   //std::uniform_real_distribution<double> unif(-100000000.,100000000.);
   std::mt19937 rng(seed);
   for (size_t i = 0; i < 1000; ++i) {

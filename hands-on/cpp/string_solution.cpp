@@ -59,7 +59,7 @@ class String {
   }
   char const& operator[](size_t n) const
   {
-    assert(s_ && n < size());
+    assert(s_ && n < size());  // assert(s_) significa assert(s_ != nullptr) 
     return s_[n];
   }
 };

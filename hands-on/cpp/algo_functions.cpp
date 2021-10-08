@@ -15,24 +15,38 @@ int main()
   std::vector<int> v = make_vector(N);
   std::cout << v << '\n';
 
+  // create the iterators
+  auto first = v.begin();
+  auto last = v.end();
+
   // multiply all the elements of the vector
   // use std::accumulate
+  auto s = std::accumulate(first, last, 1, std::multiplies<int>());
+  std::cout << s << std::endl;
 
   // sort the vector in descending order
   // use std::sort
+  std::sort(first, last, std::greater<int>());
+  std::cout << v << std::endl;
 
   // move the even numbers at the beginning of the vector
   // use std::partition
+  std::partition(first, last, [](int p){return p % 2 == 0;});
+  std::cout << v << std::endl;
 
   // create another vector with the squares of the numbers in the first vector
   // use std::transform
+  std::vector<double> a(N);
+  auto afirst = a.begin();
+  std::transform(first, last, afirst, [](int p){return sqrt(p);});
+  std::cout << a << std::endl;
 
   // find the first multiple of 3 or 7
   // use std::find_if
 
   // erase from the vector all the multiples of 3 or 7
   // use std::remove_if followed by vector::erase
-}
+};
 
 std::ostream& operator<<(std::ostream& os, std::vector<int> const& c)
 {
@@ -52,14 +66,13 @@ std::vector<int> make_vector(int N)
   // define a pseudo-random number generator engine and seed it using an actual
   // random device
   std::random_device rd;
-  std::default_random_engine eng{rd()};
+  std::mt19937 eng{rd()};
 
   int const MAX_N = 100;
   std::uniform_int_distribution<int> dist{1, MAX_N};
 
   std::vector<int> result;
   result.reserve(N);
-  std::generate_n(std::back_inserter(result), N, [&] { return dist(eng); });
-
+  std::generate_n(std::back_inserter(result), N, [&]() { return dist(eng); });
   return result;
 }
